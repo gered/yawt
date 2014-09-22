@@ -1,0 +1,45 @@
+{{=<% %>=}}
+<!DOCTYPE html>
+<!--[if lt IE 9]>   <html class="old-ie no-ws" lang="en"> <![endif]-->
+<!--[if lt IE 10]>  <html class="no-ws" lang="en">        <![endif]-->
+<!--[if gte IE 10]> <html lang="en">                      <![endif]-->
+<!--[if !IE]> -->   <html lang="en">                      <!-- <![endif]-->
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Error :: <%name%></title>
+
+	{{ stylesheet('/vendor/css/bootstrap.min.css') }}
+	{{ stylesheet('/css/screen.css') }}
+
+	<!--[if lt IE 9]>  {{ javascript('/vendor/js/jquery-1.11.1.min.js') }} <![endif]-->
+	<!--[if gte IE 9]> {{ javascript('/vendor/js/jquery-2.1.1.min.js') }}  <![endif]-->
+	<!--[if !IE]> -->  {{ javascript('/vendor/js/jquery-2.1.1.min.js') }}  <!-- <![endif]-->
+	{{ javascript('/vendor/js/es5-shim.min.js') }}
+	{{ javascript('/vendor/js/es5-sham.min.js') }}
+	<!--[if lt IE 9]>{{ javascript('/vendor/js/html5shiv.min.js') }}<![endif]-->
+	{{ javascript('/vendor/js/bootstrap.min.js') }}
+
+	<script type="text/javascript">
+		var context = '{{ path('/') }}';
+	</script>
+</head>
+<body>
+
+<div id="error-message" class="container">
+	<div class="page-header">
+		<h2>Server Error</h2>
+	</div>
+
+	<p class="lead">Your request could not be processed due to a server error.</p>
+
+	{% if stacktrace %}
+		<div>
+			<pre>{{ stacktrace }}</pre>
+		</div>
+	{% endif %}
+</div>
+
+</body>
+</html>
