@@ -23,7 +23,8 @@
 (defn init-app []
   (when (dev?)
     (enable-console-print!)
-    (if (supports-ws?)
+    (if (and (supports-ws?)
+             (not (ws-repl/alive?)))
       (ws-repl/connect "ws://localhost:9001" :verbose true)))
   (secretary/set-config! :prefix "#")
   (hook-browser-navigation!))
