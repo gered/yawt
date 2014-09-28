@@ -5,7 +5,7 @@
 
 (defroutes
   main-public-routes
-  (GET "/" [] (views/render "base.html")))
+  (GET "/" [] (views/render "index.html")))
 
 (defroutes api-routes
   (context "/api" []

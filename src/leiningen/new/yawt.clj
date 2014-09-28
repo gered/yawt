@@ -46,6 +46,7 @@
    ["resources/public/vendor/js/react.js"                             (render "resources/public/vendor/js/react.js" data)]
    ["resources/public/vendor/js/react.min.js"                         (render "resources/public/vendor/js/react.min.js" data)]
    ["resources/views/base.html"                                       (render "resources/views/base.html" data)]
+   ["resources/views/index.html"                                      (render "resources/views/index.html" data)]
    ["resources/views/error.html"                                      (render "resources/views/error.html" data)]
    ["resources/views/notfound.html"                                   (render "resources/views/notfound.html" data)]
    ["src-cljs/{{path}}/client/main.cljs"                              (render "src-cljs/root_ns/client/main.cljs" data)]

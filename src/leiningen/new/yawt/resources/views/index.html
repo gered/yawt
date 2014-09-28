@@ -1,0 +1,25 @@
+{{=<% %>=}}
+{% extends "base.html" %}
+
+{% block head_scripts %}
+	{% if isDev %}
+		{{ javascript('/vendor/js/react.js') }}
+	{% else %}
+		{{ javascript('/vendor/js/react.min.js') }}
+	{% endif %}
+
+	{% if isDev %}
+		<script type="text/javascript" src="{{ path('/cljs/target/goog/base.js') }}"></script>
+	{% endif %}
+{% endblock %}
+
+{% block body_scripts %}
+	{{ javascript('/cljs/main.js') }}
+	{% if isDev %}
+		<script type="text/javascript">goog.require('<%sanitized%>.client.main');</script>
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+	<div id="app" class="container"></div>
+{% endblock %}

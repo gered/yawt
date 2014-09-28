@@ -8,7 +8,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title><%name%></title>
+	<title>{% block title %}{% endblock %}<%name%></title>
 
 	{{ stylesheet('/vendor/css/bootstrap.min.css') }}
 	{{ stylesheet('/css/screen.css') }}
@@ -20,15 +20,8 @@
 	{{ javascript('/vendor/js/es5-sham.min.js') }}
 	<!--[if lt IE 9]>{{ javascript('/vendor/js/html5shiv.min.js') }}<![endif]-->
 	{{ javascript('/vendor/js/bootstrap.min.js') }}
-	{% if isDev %}
-	{{ javascript('/vendor/js/react.js') }}
-	{% else %}
-	{{ javascript('/vendor/js/react.min.js') }}
-	{% endif %}
 
-	{% if isDev %}
-	<script type="text/javascript" src="{{ path('/cljs/target/goog/base.js') }}"></script>
-	{% endif %}
+	{% block head_scripts %}{% endblock %}
 
 	<script type="text/javascript">
 		var context = '{{ path('/') }}';
@@ -37,14 +30,9 @@
 </head>
 <body>
 
-<div id="app" class="container">
 {% block content %}{% endblock %}
-</div>
 
-{{ javascript('/cljs/main.js') }}
-{% if isDev %}
-<script type="text/javascript">goog.require('<%sanitized%>.client.main');</script>
-{% endif %}
+{% block body_scripts %}{% endblock %}
 
 </body>
 </html>
