@@ -35,7 +35,7 @@
                  [edn-config "0.2"]
                  [prone "0.6.0"]]
 
-  :plugins      [[lein-ring "0.8.10"]
+  :plugins      [[lein-ring "0.8.12"]
 {{#webapp}}
                  [lein-cljsbuild "1.0.3"]
 {{/webapp}}
