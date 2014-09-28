@@ -10,15 +10,15 @@ YAWT is a Leiningen template to generate a base project for building:
 * Simple support for adding initial database dependencies (PostgreSQL or CouchDB only at the moment)
 
 This template is **primarly** written for my own use. I got tired of generating new projects with Luminus 
-or some other template and then fiddling with the project for 20-30 minutes afterwards to get it where I 
+or other templates and then fiddling with the resulting project for 20-30 minutes afterwards to get it where I 
 wanted it to be before I would work on the actual important bits of the project I was starting.
 
-It is _not really_ intended to be a generic "use for anything" Leiningen template. There definitely will be
-some biased approaches to things like project/code organization and how things are configured. These things
-just happen to be set the way I like them to be. This may or may not work well for you, and if not, you might
-consider using another template like Luminus instead.
+It is _not really_ intended to be completely generic "great fit for anyone" Leiningen template. There 
+definitely will be some biased approaches to things like project/code organization and how things are configured. 
+These things just happen to be set the way I like them to be. This may or may not work well for you, and if not, 
+you might consider using another template to start off your projects instead.
 
-However, if you do find that this template has worked out well for you, that's great!
+However, if you do find that this template has worked out well for you -- that's great!
 
 ## Usage
 
@@ -55,6 +55,12 @@ Out of the box, the `repl` configuration will automatically run `(start-server)`
 and also provides a function for converting the REPL into a ClojureScript REPL (see below section for more info). The
 code that accomplishes this is located under `dev/user.clj`. As per the profile's name, the `repl` profile is only
 activated when you are in a Leiningen REPL.
+
+### NOTE: Leiningen 2.5.0 Profile Issues
+
+Currently there are some bugs with regards to including profiles when building uberjars/wars with Leiningen. As a 
+result you should double check any time an uberjar or uberwar is build that the correct `config.edn` was included.
+This problem has been acknowledged and a fix will hopefully be available in Leiningen 2.5.1.
 
 ## ClojureScript
 
