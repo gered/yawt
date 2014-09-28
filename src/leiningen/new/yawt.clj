@@ -1,5 +1,5 @@
 (ns leiningen.new.yawt
-  (:require [leiningen.new.templates :refer [renderer name-to-path sanitize-ns ->files]]
+  (:require [leiningen.new.templates :refer [renderer name-to-path sanitize sanitize-ns ->files]]
             [leiningen.core.main :as main]
             [clojure.string :as str]))
 
@@ -110,9 +110,10 @@
   [name & requested-options]
   (let [options (get-final-requested-options requested-options)
         data    (merge
-                  {:name    name
-                   :root-ns (sanitize-ns name)
-                   :path    (name-to-path name)}
+                  {:name      name
+                   :sanitized (sanitize name)
+                   :root-ns   (sanitize-ns name)
+                   :path      (name-to-path name)}
                   (reduce
                     #(assoc %1 (keyword %2) true)
                     {}

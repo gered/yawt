@@ -43,7 +43,7 @@
 
 {{ javascript('/cljs/main.js') }}
 {% if isDev %}
-<script type="text/javascript">goog.require('<%name%>.client.main');</script>
+<script type="text/javascript">goog.require('<%sanitized%>.client.main');</script>
 {% endif %}
 
 </body>
