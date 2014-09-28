@@ -72,7 +72,7 @@
   [["src/{{path}}/db.clj" (render "src/root_ns/db_couchdb.clj" data)]])
 
 (defn make-project! [options data]
-  (main/info "Generating a new YAWT project using options:" (str/join ", " options))
+  (main/info "Generating a new YAWT project called" (:name data) "using options:" (str/join ", " options))
   (apply ->files data
          (concat
            (get-base-files data)
