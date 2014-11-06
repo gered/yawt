@@ -8,7 +8,7 @@
 
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [compojure "1.2.1"]
-                 [metosin/ring-http-response "0.5.1"]
+                 [metosin/ring-http-response "0.4.0"]
                  [lib-noir "0.9.4"]
                  [ring-server "0.3.1"]
 {{#webapp}}
