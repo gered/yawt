@@ -1,7 +1,7 @@
 (ns {{root-ns}}.client.main
   (:require [weasel.repl :as ws-repl]
             [reagent.core :as reagent]
-            [secretary.core :as secretary :include-macros true :refer [defroute]]
+            [secretary.core :as secretary :refer-macros [defroute]]
             [{{root-ns}}.client.page-components :refer [app-page]]
             [{{root-ns}}.client.utils :refer [hook-browser-navigation! dev? supports-ws?]]
             [{{root-ns}}.client.routes.home :refer [home-page]]
