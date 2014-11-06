@@ -22,7 +22,6 @@
    ["config/repl/config.edn"      (render "config/repl/config.edn" data)]
    ["resources/log4j.properties"  (render "resources/log4j.properties" data)]
    ["src/{{path}}/core.clj"       (render "src/root_ns/core.clj" data)]
-   ["src/{{path}}/handler.clj"    (render "src/root_ns/handler.clj" data)]
    ["src/{{path}}/utils.clj"      (render "src/root_ns/utils.clj" data)]
    ["src/{{path}}/api/hello.clj"  (render "src/root_ns/api/hello.clj" data)]])
 

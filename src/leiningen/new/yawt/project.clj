@@ -50,9 +50,10 @@
   :repl-options {:init-ns user}
 {{/webservice}}
 
-  :ring {:handler {{root-ns}}.handler/app
-         :init    {{root-ns}}.handler/init
-         :destroy {{root-ns}}.handler/destroy}
+  :ring {:handler {{root-ns}}.core/app
+         :init    {{root-ns}}.core/init
+         :destroy {{root-ns}}.core/destroy
+         :port    8080}
 
 {{#webapp}}
   :cljsbuild {:builds [{:id           "dev"
