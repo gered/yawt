@@ -7,17 +7,17 @@
   :main             {{root-ns}}.core
 
   :dependencies [[org.clojure/clojure "1.6.0"]
-                 [compojure "1.1.9"]
-                 [metosin/ring-http-response "0.4.0"]
-                 [lib-noir "0.8.9"]
+                 [compojure "1.2.1"]
+                 [metosin/ring-http-response "0.5.1"]
+                 [lib-noir "0.9.4"]
                  [ring-server "0.3.1"]
 {{#webapp}}
-                 [org.clojure/clojurescript "0.0-2311"]
-                 [weasel "0.4.0-SNAPSHOT"]
+                 [org.clojure/clojurescript "0.0-2371"]
+                 [weasel "0.4.2"]
                  [clj-jtwig "0.5.1"]
-                 [secretary "1.2.0"]
-                 [reagent "0.4.2"]
-                 [cljs-ajax "0.3.0"]
+                 [secretary "1.2.1"]
+                 [reagent "0.4.3"]
+                 [cljs-ajax "0.3.3"]
 {{/webapp}}
 {{#webservice}}
                  [hiccup "1.0.5"]
@@ -29,13 +29,13 @@
 {{/postgresql}}
 {{#couchdb}}
                  [com.ashafa/clutch "0.4.0"]
-                 [com.cemerick/url "0.0.6"]
+                 [com.cemerick/url "0.1.1"]
 {{/couchdb}}
                  [com.taoensso/timbre "3.3.1"]
                  [edn-config "0.2"]
                  [prone "0.6.0"]]
 
-  :plugins      [[lein-ring "0.8.12"]
+  :plugins      [[lein-ring "0.8.13"]
 {{#webapp}}
                  [lein-cljsbuild "1.0.3"]
 {{/webapp}}
