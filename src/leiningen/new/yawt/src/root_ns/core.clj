@@ -75,8 +75,6 @@
 
 (defonce server (atom nil))
 
-(defonce server (atom nil))
-
 (defn start-server [& [port]]
   (let [port (if port (Integer/parseInt port) 8080)]
     (reset! server
