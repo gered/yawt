@@ -8,8 +8,8 @@
             [ring.server.standalone :refer [serve]]
             [ring.middleware.file :refer [wrap-file]]
 {{#webapp}}
-            [clj-jtwig.core :as jtwig]
-            [clj-jtwig.web.middleware :refer [wrap-servlet-context-path]]
+            [clj-pebble.core :as pebble]
+            [clj-pebble.web.middleware :refer [wrap-servlet-context-path]]
 {{/webapp}}
             [edn-config.core :refer [env]]
             [prone.middleware :as prone]
@@ -47,9 +47,8 @@
 {{#webapp}}
   (when (env :dev)
     (log :info "Running in :dev environment.")
-    (log :info "Disabling Jtwig template caching.")
-    (jtwig/set-options! :cache-compiled-templates false)
-    (jtwig/set-options! :check-for-minified-web-resources false))
+    (pebble/set-options! :cache false
+                         :check-for-minified-web-resources false))
 {{/webapp}}
 {{#webservice}}
   (when (env :dev)

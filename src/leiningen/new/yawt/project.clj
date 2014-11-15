@@ -14,7 +14,7 @@
 {{#webapp}}
                  [org.clojure/clojurescript "0.0-2371"]
                  [weasel "0.4.2"]
-                 [clj-jtwig "0.5.1"]
+                 [clj-pebble "0.2.0"]
                  [secretary "1.2.1"]
                  [reagent "0.4.3"]
                  [cljs-ajax "0.3.3"]

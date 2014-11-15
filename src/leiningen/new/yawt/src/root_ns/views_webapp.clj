@@ -1,7 +1,7 @@
 (ns {{root-ns}}.views
   (:require [clojure.string :as str]
-            [clj-jtwig.core :as jtwig]
-            [clj-jtwig.web.middleware :refer [*servlet-context-path*]]
+            [clj-pebble.core :as pebble]
+            [clj-pebble.web.middleware :refer [*servlet-context-path*]]
             [ring.util.response :as response]
             [compojure.response :refer [Renderable]]
             [edn-config.core :refer [env]]))
@@ -9,7 +9,7 @@
 (def template-path "views/")
 
 (defn- render-template [request template params]
-  (jtwig/render-resource
+  (pebble/render-resource
     (str template-path template)
     (assoc params
       :isDev   (env :dev)
