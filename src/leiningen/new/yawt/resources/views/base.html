@@ -25,7 +25,7 @@
 
 	<script type="text/javascript">
 		var context = '{{ path('/') }}';
-		var isDev = {{ isDev }};
+		var isDev = {{ isDev|default('false') }};
 	</script>
 </head>
 <body>
