@@ -45,10 +45,10 @@ $ lein new yawt [project-name] [options]
 
 ## Profiles
 
-The default `project.clj` includes three Leiningen profiles, `release`, `dev` and `repl`.
+The default `project.clj` includes three Leiningen profiles, `ubejar`, `dev` and `repl`.
 
-These profiles include a profile-specific configuration `config.edn` file from under `config/` under the matching
-profile name. See [edn-config](https://github.com/yogthos/edn-config) for more
+These profiles include a profile-specific configuration `config.edn` file from under `env-resources/` under the 
+matching profile name. See [edn-config](https://github.com/yogthos/edn-config) for more
 information about how this configuration file can be accessed from code.
 
 Out of the box, the `repl` configuration will automatically run `(start-server)` when the REPL finishes loading up
@@ -56,11 +56,15 @@ and also provides a function for converting the REPL into a ClojureScript REPL (
 code that accomplishes this is located under `dev/user.clj`. As per the profile's name, the `repl` profile is only
 activated when you are in a Leiningen REPL.
 
-### NOTE: Leiningen 2.5.0 Profile Issues
+## Development
 
-Currently there are some bugs with regards to including profiles when building uberjars/wars with Leiningen. As a 
-result you should double check any time an uberjar or uberwar is build that the correct `config.edn` was included.
-This problem has been acknowledged and a fix will hopefully be available in Leiningen 2.5.1.
+Note that unlike some other Clojure web frameworks / templates, this template does not include lein-ring. So you
+will not be able to run `lein ring server`. This is deliberately not included as it is not compatible with using
+an async Jetty adapter and also obviously not usable with something like http-kit, so I don't like including it
+since I prefer having my usual development tasks (commands) work the same regardless of which HTTP server I am using.
+
+However, regardless of what Jetty adapter is being used, Ring's `wrap-reload` middleware is included in development
+builds so a simple `lein run` is probably sufficient to replace what `lein ring server` gave you.
 
 ## ClojureScript
 
@@ -72,6 +76,12 @@ $ lein cljsbuild clean
 $ lein cljsbuild auto
 
 $ lein cljsbuild once release
+```
+
+A Leiningen alias is available which is helpful during development:
+
+```
+$ lein mkcljs
 ```
 
 Generated web applications are set up with support for a ClojureScript REPL using [weasel](https://github.com/tomjakubowski/weasel).
@@ -90,14 +100,15 @@ unfortunately. Be warned!*
 
 ## Deploying
 
-Make sure to specify a profile when building an uberjar or uberwar with Leiningen. This ensures the correct
-`config.edn` is used:
+Simply run:
 
 ```
-$ lein with-profile release ring uberjar
-
-$ lein with-profile release ring uberwar
+$ lein uberjar
 ```
+
+This will clean out existing compiled output, rebuild ClojureScript using advanced optimizations and spit
+out an uberjar you can deploy. This will use the config file under `env-resources/uberjar` which is usually
+configured for use with "release" builds.
 
 ## License
 
