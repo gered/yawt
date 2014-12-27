@@ -1,7 +1,8 @@
 (ns leiningen.new.yawt
-  (:require [leiningen.new.templates :refer [renderer name-to-path sanitize sanitize-ns ->files]]
-            [leiningen.core.main :as main]
-            [clojure.string :as str]))
+  (:require
+    [leiningen.new.templates :refer [renderer name-to-path sanitize sanitize-ns ->files]]
+    [leiningen.core.main :as main]
+    [clojure.string :as str]))
 
 (def render (renderer "yawt"))
 
@@ -15,15 +16,15 @@
   #{"webapp"})
 
 (defn get-base-files [data]
-  [[".gitignore"                  (render "gitignore" data)]
-   ["project.clj"                 (render "project.clj" data)]
-   ["config/dev/config.edn"       (render "config/dev/config.edn" data)]
-   ["config/release/config.edn"   (render "config/release/config.edn" data)]
-   ["config/repl/config.edn"      (render "config/repl/config.edn" data)]
-   ["resources/log4j.properties"  (render "resources/log4j.properties" data)]
-   ["src/{{path}}/core.clj"       (render "src/root_ns/core.clj" data)]
-   ["src/{{path}}/utils.clj"      (render "src/root_ns/utils.clj" data)]
-   ["src/{{path}}/api/hello.clj"  (render "src/root_ns/api/hello.clj" data)]])
+  [[".gitignore"                       (render "gitignore" data)]
+   ["project.clj"                      (render "project.clj" data)]
+   ["env-resources/dev/config.edn"     (render "env-resources/dev/config.edn" data)]
+   ["env-resources/uberjar/config.edn" (render "env-resources/uberjar/config.edn" data)]
+   ["env-resources/repl/config.edn"    (render "env-resources/repl/config.edn" data)]
+   ["resources/log4j.properties"       (render "resources/log4j.properties" data)]
+   ["src/{{path}}/core.clj"            (render "src/root_ns/core.clj" data)]
+   ["src/{{path}}/utils.clj"           (render "src/root_ns/utils.clj" data)]
+   ["src/{{path}}/api/hello.clj"       (render "src/root_ns/api/hello.clj" data)]])
 
 (defn get-webapp-files [data]
   ["resources/public/cljs"
@@ -48,11 +49,11 @@
    ["resources/views/index.html"                                      (render "resources/views/index.html" data)]
    ["resources/views/error.html"                                      (render "resources/views/error.html" data)]
    ["resources/views/notfound.html"                                   (render "resources/views/notfound.html" data)]
-   ["src-cljs/{{path}}/client/main.cljs"                              (render "src-cljs/root_ns/client/main.cljs" data)]
-   ["src-cljs/{{path}}/client/page_components.cljs"                   (render "src-cljs/root_ns/client/page_components.cljs" data)]
-   ["src-cljs/{{path}}/client/utils.cljs"                             (render "src-cljs/root_ns/client/utils.cljs" data)]
-   ["src-cljs/{{path}}/client/routes/home.cljs"                       (render "src-cljs/root_ns/client/routes/home.cljs" data)]
-   ["src-cljs/{{path}}/client/routes/misc.cljs"                       (render "src-cljs/root_ns/client/routes/misc.cljs" data)]
+   ["src/{{path}}/client/main.cljs"                                   (render "src/root_ns/client/main.cljs" data)]
+   ["src/{{path}}/client/page_components.cljs"                        (render "src/root_ns/client/page_components.cljs" data)]
+   ["src/{{path}}/client/utils.cljs"                                  (render "src/root_ns/client/utils.cljs" data)]
+   ["src/{{path}}/client/routes/home.cljs"                            (render "src/root_ns/client/routes/home.cljs" data)]
+   ["src/{{path}}/client/routes/misc.cljs"                            (render "src/root_ns/client/routes/misc.cljs" data)]
    ["src/{{path}}/middleware.clj"                                     (render "src/root_ns/middleware_webapp.clj" data)]
    ["src/{{path}}/routes.clj"                                         (render "src/root_ns/routes_webapp.clj" data)]
    ["src/{{path}}/views.clj"                                          (render "src/root_ns/views_webapp.clj" data)]

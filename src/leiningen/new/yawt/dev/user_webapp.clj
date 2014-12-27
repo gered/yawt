@@ -1,8 +1,10 @@
 (ns user
-  (:require weasel.repl.websocket
-            cemerick.piggieback
-            [edn-config.core :refer [env]])
-  (:use {{root-ns}}.core))
+  (:require
+    weasel.repl.websocket
+    cemerick.piggieback
+    [edn-config.core :refer [env]])
+  (:use
+    {{root-ns}}.core))
 
 (defn cljs-repl
   "after establishing a normal repl with leiningen (e.g. by running 'lein repl') *and* after

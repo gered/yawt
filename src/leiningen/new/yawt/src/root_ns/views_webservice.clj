@@ -1,8 +1,10 @@
 (ns {{root-ns}}.views
-  (:require [ring.util.response :as response]
-            [compojure.response :refer [Renderable]])
-  (:use hiccup.core
-        hiccup.page))
+  (:require
+    [ring.util.response :as response]
+    [compojure.response :refer [Renderable]])
+  (:use
+    hiccup.core
+    hiccup.page))
 
 (defn render-response [request page-fn & {:keys [params status content-type]}]
   (-> (page-fn request params)

@@ -3,43 +3,44 @@
   :url              "http://example.com/FIXME"
   :min-lein-version "2.0.0"
 
-  :source-paths     ["src"{{#webapp}} "src-cljs"{{/webapp}}]
   :main             {{root-ns}}.core
 
   :dependencies [[org.clojure/clojure "1.6.0"]
-                 [compojure "1.2.1"]
-                 [metosin/ring-http-response "0.4.0"]
-                 [lib-noir "0.9.4"]
+                 [compojure "1.3.1"]
+                 [metosin/ring-http-response "0.5.2"]
+                 [lib-noir "0.9.5" :exclusions [javax.servlet/servlet-api]]
+                 [ring-custom-jetty-server "0.1.0"]
                  [ring-server "0.3.1"]
 {{#webapp}}
-                 [org.clojure/clojurescript "0.0-2371"]
+                 [org.clojure/clojurescript "0.0-2511"]
                  [weasel "0.4.2"]
                  [clj-pebble "0.2.0"]
                  [secretary "1.2.1"]
-                 [reagent "0.4.3"]
+                 [reagent "0.5.0-alpha"]
                  [cljs-ajax "0.3.3"]
 {{/webapp}}
 {{#webservice}}
                  [hiccup "1.0.5"]
 {{/webservice}}
 {{#postgresql}}
-                 [org.clojure/java.jdbc "0.3.5"]
-                 [postgresql/postgresql "8.4-702.jdbc4"]
-                 [ragtime "0.3.7"]
+                 [org.clojure/java.jdbc "0.3.6"]
+                 [org.postgresql/postgresql "9.2-1003-jdbc4"]
+                 [clojurewerkz/ragtime "0.4.0"]
 {{/postgresql}}
 {{#couchdb}}
                  [com.ashafa/clutch "0.4.0"]
                  [com.cemerick/url "0.1.1"]
 {{/couchdb}}
-                 [com.taoensso/timbre "3.3.1"]
+                 [org.clojure/tools.logging "0.3.1"]
+                 [log4j "1.2.16"]
+                 [org.slf4j/slf4j-log4j12 "1.7.1"]
                  [edn-config "0.2"]
-                 [prone "0.6.0"]]
+                 [prone "0.8.0"]]
 
-  :plugins      [[lein-ring "0.8.13"]
+  :plugins      [[lein-environ "1.0.0"]
 {{#webapp}}
                  [lein-cljsbuild "1.0.3"]
 {{/webapp}}
-                 [lein-environ "1.0.0"]
                  [lein-pprint "1.1.1"]]
 
 {{#webapp}}
@@ -50,42 +51,42 @@
   :repl-options {:init-ns user}
 {{/webservice}}
 
-  :ring {:handler {{root-ns}}.core/app
-         :init    {{root-ns}}.core/init
-         :destroy {{root-ns}}.core/destroy
-         :port    8080}
-
 {{#webapp}}
-  :cljsbuild {:builds [{:id           "dev"
-                        :source-paths ["src-cljs"]
-                        :compiler     {:output-to     "resources/public/cljs/main.js"
-                                       :source-map    "resources/public/cljs/main.js.map"
-                                       :output-dir    "resources/public/cljs/target"
-                                       :optimizations :none
-                                       :pretty-print  true}}
-                       {:id           "release"
-                        :source-paths ["src-cljs"]
-                        :compiler     {:output-to        "resources/public/cljs/main.js"
-                                       :optimizations    :advanced
-                                       :pretty-print     false
-                                       :output-wrapper   false
-                                       :externs          ["externs/jquery.js"]
-                                       :closure-warnings {:non-standard-jsdoc :off}}}]}
+  :cljsbuild {:builds {:main
+                        {:source-paths ["src/{{path}}/client"]
+                         :compiler     {:output-to     "resources/public/cljs/main.js"
+                                        :source-map    "resources/public/cljs/main.js.map"
+                                        :output-dir    "resources/public/cljs/target"
+                                        :externs       ["externs/jquery.js"]
+                                        :optimizations :none
+                                        :pretty-print  true}}}}
 
 {{/webapp}}
-  :profiles {:release {:resource-paths ["config/release"]
+  :profiles {:uberjar {:resource-paths ["env-resources/uberjar"]
                        :aot            :all
+                       :omit-source    true
+{{#webapp}}
+                       :hooks          [leiningen.cljsbuild]
+                       :cljsbuild      {:jar    true
+                                        :builds {:main
+                                                 {:compiler ^:replace
+                                                            {:output-to     "resources/public/cljs/main.js"
+                                                             :optimizations :advanced
+                                                             :pretty-print  false}}}}
+{{/webapp}}
                        :ring           {:open-browser? false
                                         :stacktraces?  false
                                         :auto-reload?  false}}
-             :dev     {:resource-paths ["config/dev"]
-                       :dependencies   [[ring-mock "0.1.5"]
-                                        [ring/ring-devel "1.3.1"]
-{{#webapp}}
-                                        [com.cemerick/piggieback "0.1.3"]
-{{/webapp}}
+             :dev     {:resource-paths ["env-resources/dev"]
+                       :dependencies   [{{#webapp}}[com.cemerick/piggieback "0.1.3"]{{/webapp}}
                                         [pjstadig/humane-test-output "0.6.0"]]
+{{#postgresql}}
+                       :ragtime        {:migrations ragtime.sql.files/migrations
+                                        :database   "jdbc:postgresql://localhost:5432/db_name?user=username&password=password"}
+{{/postgresql}}
                        :injections     [(require 'pjstadig.humane-test-output)
                                         (pjstadig.humane-test-output/activate!)]}
-             :repl    {:resource-paths ["config/repl"]
-                       :source-paths   ["dev"]}})
+             :repl    {:resource-paths ["env-resources/repl"]
+                       :source-paths   ["dev"]}}
+ :aliases {"uberjar" ["do" "clean" {{#webapp}}["cljsbuild" "clean"]{{/webapp}} "uberjar"]{{#webapp}}
+           "mkcljs" ["do" ["cljsbuild" "clean"] ["cljsbuild" "once"] ["cljsbuild" "auto"]]{{/webapp}}})

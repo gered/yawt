@@ -1,8 +1,10 @@
 (ns {{root-ns}}.middleware
-  (:require [taoensso.timbre :refer [log]]
-            [noir.response :as response]
-            [{{root-ns}}.views :as views])
-  (:use {{root-ns}}.utils))
+  (:require
+    [clojure.tools.logging :refer [error]]
+    [noir.response :as response]
+    [{{root-ns}}.views :as views])
+  (:use
+    {{root-ns}}.utils))
 
 (defn- api-request? [request]
   (.startsWith
@@ -16,7 +18,7 @@
     (try
       (handler request)
       (catch Throwable ex
-        (log :error ex "Unhandled exception.")
+        (error ex "Unhandled exception.")
         (if (api-request? request)
           (->> (response/json
                  {:status  "error"

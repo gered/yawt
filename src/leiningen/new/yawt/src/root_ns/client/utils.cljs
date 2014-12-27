@@ -1,11 +1,13 @@
 (ns {{root-ns}}.client.utils
-  (:import goog.History)
-  (:require [clojure.string :as str]
-            [clojure.walk :refer [keywordize-keys]]
-            [ajax.core :refer [GET]]
-            [goog.events :as events]
-            [goog.history.EventType :as EventType]
-            [secretary.core :as secretary]))
+  (:import
+    goog.History)
+  (:require
+    [clojure.string :as str]
+    [clojure.walk :refer [keywordize-keys]]
+    [ajax.core :refer [GET]]
+    [goog.events :as events]
+    [goog.history.EventType :as EventType]
+    [secretary.core :as secretary]))
 
 (defn dev?
   "returns true if running in a dev build"

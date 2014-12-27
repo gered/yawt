@@ -1,7 +1,8 @@
 (ns {{root-ns}}.routes
-  (:require [compojure.core :refer [defroutes context GET]]
-            [{{root-ns}}.api.hello :as hello-api]
-            [{{root-ns}}.views :as views]))
+  (:require
+    [compojure.core :refer [defroutes context GET]]
+    [{{root-ns}}.api.hello :as hello-api]
+    [{{root-ns}}.views :as views]))
 
 (defroutes
   main-public-routes

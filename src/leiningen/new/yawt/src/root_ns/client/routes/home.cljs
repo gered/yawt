@@ -1,6 +1,7 @@
 (ns {{root-ns}}.client.routes.home
-  (:require [reagent.core :refer [atom]]
-            [{{root-ns}}.client.utils :refer [api-fetch!]]))
+  (:require
+    [reagent.core :refer [atom]]
+    [{{root-ns}}.client.utils :refer [api-fetch!]]))
 
 (defn home-page []
   (let [hello-response (atom nil)]

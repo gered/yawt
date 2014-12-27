@@ -1,7 +1,9 @@
 (ns {{root-ns}}.db
-  (:import (org.postgresql.ds PGPoolingDataSource))
-  (:require [clojure.java.jdbc :as sql]
-            [edn-config.core :refer [env]]))
+  (:import
+    (org.postgresql.ds PGPoolingDataSource))
+  (:require
+    [clojure.java.jdbc :as sql]
+    [edn-config.core :refer [env]]))
 
 (defonce db (atom nil))
 

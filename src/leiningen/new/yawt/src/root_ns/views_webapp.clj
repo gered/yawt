@@ -1,10 +1,11 @@
 (ns {{root-ns}}.views
-  (:require [clojure.string :as str]
-            [clj-pebble.core :as pebble]
-            [clj-pebble.web.middleware :refer [*servlet-context-path*]]
-            [ring.util.response :as response]
-            [compojure.response :refer [Renderable]]
-            [edn-config.core :refer [env]]))
+  (:require
+    [clojure.string :as str]
+    [clj-pebble.core :as pebble]
+    [clj-pebble.web.middleware :refer [*servlet-context-path*]]
+    [ring.util.response :as response]
+    [compojure.response :refer [Renderable]]
+    [edn-config.core :refer [env]]))
 
 (def template-path "views/")
 

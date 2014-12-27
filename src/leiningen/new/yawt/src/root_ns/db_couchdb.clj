@@ -1,9 +1,9 @@
 (ns {{root-ns}}.db
-  (:require [com.ashafa.clutch :as couch]
-            [com.ashafa.clutch.utils :as couch-utils]
-            [cemerick.url :as url]
-            [taoensso.timbre :refer [log]]
-            [edn-config.core :refer [env]]))
+  (:require
+    [com.ashafa.clutch :as couch]
+    [com.ashafa.clutch.utils :as couch-utils]
+    [cemerick.url :as url]
+    [edn-config.core :refer [env]]))
 
 (defn db-url [db-name]
   (let [db-config (env :db)
