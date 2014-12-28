@@ -66,7 +66,8 @@
    ["dev/user.clj"                (render "dev/user_webservice.clj" data)]])
 
 (defn get-postgresql-files [data]
-  [["src/{{path}}/db.clj" (render "src/root_ns/db_postgresql.clj" data)]])
+  ["migrations"
+   ["src/{{path}}/db.clj" (render "src/root_ns/db_postgresql.clj" data)]])
 
 (defn get-couchdb-files [data]
   [["src/{{path}}/db.clj" (render "src/root_ns/db_couchdb.clj" data)]])

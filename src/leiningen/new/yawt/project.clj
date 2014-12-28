@@ -41,6 +41,9 @@
 {{#webapp}}
                  [lein-cljsbuild "1.0.3"]
 {{/webapp}}
+{{#postgresql}}
+                 [clojurewerkz/ragtime.lein "0.4.0"]
+{{/postgresql}}
                  [lein-pprint "1.1.1"]]
 
 {{#webapp}}
