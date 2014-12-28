@@ -68,21 +68,13 @@ builds so a simple `lein run` is probably sufficient to replace what `lein ring 
 
 ## ClojureScript
 
-ClojureScript code can be compiled as per normal using `lein cljsbuild` commands. Some of the more useful commands:
-
-```
-$ lein cljsbuild clean
-
-$ lein cljsbuild auto
-
-$ lein cljsbuild once release
-```
-
 A Leiningen alias is available which is helpful during development:
 
 ```
-$ lein mkcljs
+$ lein cljsdev
 ```
+
+It performs a `cljsbuild clean`, `once` and `auto`.
 
 Generated web applications are set up with support for a ClojureScript REPL using [weasel](https://github.com/tomjakubowski/weasel).
 Note that the `project.clj` uses a specific version of ClojureScript and weasel to ensure this configuration works.
