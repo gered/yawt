@@ -60,7 +60,6 @@
                          :compiler     {:output-to     "resources/public/cljs/main.js"
                                         :source-map    "resources/public/cljs/main.js.map"
                                         :output-dir    "resources/public/cljs/target"
-                                        :externs       ["externs/jquery.js"]
                                         :optimizations :none
                                         :pretty-print  true}}}}
 
@@ -74,6 +73,7 @@
                                         :builds {:main
                                                  {:compiler ^:replace
                                                             {:output-to     "resources/public/cljs/main.js"
+                                                             :externs       ["externs/jquery.js"]
                                                              :optimizations :advanced
                                                              :pretty-print  false}}}}
 {{/webapp}}
@@ -91,5 +91,6 @@
                                         (pjstadig.humane-test-output/activate!)]}
              :repl    {:resource-paths ["env-resources/repl"]
                        :source-paths   ["dev"]}}
+
  :aliases {"uberjar" ["do" "clean" {{#webapp}}["cljsbuild" "clean"]{{/webapp}} "uberjar"]{{#webapp}}
-           "mkcljs" ["do" ["cljsbuild" "clean"] ["cljsbuild" "once"] ["cljsbuild" "auto"]]{{/webapp}}})
+           "cljsdev" ["do" ["cljsbuild" "clean"] ["cljsbuild" "once"] ["cljsbuild" "auto"]]{{/webapp}}})
