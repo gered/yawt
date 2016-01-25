@@ -25,10 +25,12 @@
 {{#webservice}}
                  [hiccup "1.0.5"]
 {{/webservice}}
-{{#postgresql}}
+{{#sql}}
                  [org.clojure/java.jdbc "0.4.2"]
-                 [org.postgresql/postgresql "9.4-1202-jdbc42"]
                  [clojurewerkz/ragtime "0.4.0"]
+{{/sql}}
+{{#postgresql}}
+                 [org.postgresql/postgresql "9.4-1202-jdbc42"]
 {{/postgresql}}
 {{#couchdb}}
                  [com.ashafa/clutch "0.4.0"]
@@ -44,9 +46,9 @@
 {{#webapp}}
                  [lein-cljsbuild "1.1.2"]
 {{/webapp}}
-{{#postgresql}}
+{{#sql}}
                  [clojurewerkz/ragtime.lein "0.4.0"]
-{{/postgresql}}
+{{/sql}}
                  [lein-pprint "1.1.1"]]
 
 {{#webapp}}
@@ -88,10 +90,10 @@
              :dev     {:resource-paths ["env-resources/dev"]
                        :dependencies   [{{#webapp}}[com.cemerick/piggieback "0.2.1"]{{/webapp}}
                                         [pjstadig/humane-test-output "0.7.1"]]
-{{#postgresql}}
+{{#sql}}
                        :ragtime        {:migrations ragtime.sql.files/migrations
-                                        :database   "jdbc:postgresql://localhost:5432/db_name?user=username&password=password"}
-{{/postgresql}}
+                                        :database   "jdbc:{{#postgresql}}postgresql{{/postgresql}}://localhost:5432/db_name?user=username&password=password"}
+{{/sql}}
                        :injections     [(require 'pjstadig.humane-test-output)
                                         (pjstadig.humane-test-output/activate!)]}
              :repl    {:resource-paths ["env-resources/repl"]

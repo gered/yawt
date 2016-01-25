@@ -58,9 +58,11 @@
    ["src/{{path}}/views.clj"      (render "src/root_ns/views_webservice.clj" data)]
    ["dev/user.clj"                (render "dev/user_webservice.clj" data)]])
 
+(defn get-sql-files [data]
+  ["migrations"])
+
 (defn get-postgresql-files [data]
-  ["migrations"
-   ["src/{{path}}/db.clj" (render "src/root_ns/db_postgresql.clj" data)]])
+  [["src/{{path}}/db.clj" (render "src/root_ns/db_postgresql.clj" data)]])
 
 (defn get-couchdb-files [data]
   [["src/{{path}}/db.clj" (render "src/root_ns/db_couchdb.clj" data)]])
@@ -72,6 +74,7 @@
            (get-base-files data)
            (if (:webapp data)     (get-webapp-files data))
            (if (:webservice data) (get-webservice-files data))
+           (if (:sql data)        (get-sql-files data))
            (if (:postgresql data) (get-postgresql-files data))
            (if (:couchdb data)    (get-couchdb-files data)))))
 
@@ -91,14 +94,29 @@
   (println "*** If neither 'webapp' or 'webservice' is specified, 'webapp' is assumed")
   (println "*** Specifying no options will default to use only 'webapp'"))
 
+(defn add-webapp-default [options]
+  (if-not (or (some #{"webapp"} options)
+              (some #{"webservice"} options))
+    (conj options "webapp")
+    options))
+
+(defn add-sql-option [options]
+  (if (some #{"postgresql"} options)
+    (conj options "sql")
+    options))
+
+(defn add-nosql-option [options]
+  (if (some #{"couchdb"} options)
+    (conj options "nosql")
+    options))
+
 (defn get-final-requested-options [requested-options]
-  (let [options (if (seq requested-options)
-                  (set requested-options)
-                  default-options)]
-    (if-not (or (some #{"webapp"} options)
-                (some #{"webservice"} options))
-      (conj options "webapp")
-      options)))
+  (->> (if (seq requested-options)
+         (set requested-options)
+         default-options)
+       (add-webapp-default)
+       (add-sql-option)
+       (add-nosql-option)))
 
 (defn yawt
   "Creates a new YAWT (web app/service) project."

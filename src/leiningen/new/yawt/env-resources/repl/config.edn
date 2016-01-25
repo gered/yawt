@@ -1,13 +1,13 @@
 {:dev true
  :repl true
  :auto-start-server? true
-{{#postgresql}}
+{{#sql}}
  :db {:host "localhost"
       :name "db_name"
       :port 5432
       :username "username"
       :password "password"}
-{{/postgresql}}
+{{/sql}}
 {{#couchdb}}
  :db {:url "http://localhost:5984/"
       :username "username"

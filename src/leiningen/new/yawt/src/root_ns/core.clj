@@ -14,9 +14,9 @@
 {{/webapp}}
     [edn-config.core :refer [env]]
     [prone.middleware :as prone]
-{{#postgresql}}
+{{#sql}}
     [{{root-ns}}.db :as db]
-{{/postgresql}}
+{{/sql}}
     [{{root-ns}}.routes :refer [main-public-routes api-routes]]
     [{{root-ns}}.middleware :refer [wrap-exceptions not-found-handler]]))
 
@@ -37,14 +37,14 @@
   (when (env :dev)
     (info "Running in :dev environment."))
 {{/webservice}}
-{{#postgresql}}
+{{#sql}}
 
   (try
     (db/init!)
     (info "Database access initialized.")
     (catch Exception ex
       (throw (Exception. "Database not available or bad connection information specified." ex))))
-{{/postgresql}}
+{{/sql}}
 
   (info "Application init finished."))
 
