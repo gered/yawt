@@ -3,12 +3,6 @@
 
 {% block head_scripts %}
 	{% if isDev %}
-		{{ javascript('/vendor/js/react.js') }}
-	{% else %}
-		{{ javascript('/vendor/js/react.min.js') }}
-	{% endif %}
-
-	{% if isDev %}
 		<script type="text/javascript" src="{{ path('/cljs/target/goog/base.js') }}"></script>
 	{% endif %}
 {% endblock %}

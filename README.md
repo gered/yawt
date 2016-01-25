@@ -5,7 +5,7 @@
 YAWT is a Leiningen template to generate a base project for building:
 
 * Clojure web applications using ClojureScript and Reagent
-  * Also sets things up in a way that should work with IE8 (because -- woe is me -- I must support that crap still sometimes)
+  * Also sets things up in a way that should work with IE9 (because -- woe is me -- I must support that crap still sometimes)
 * Clojure web services exposing a JSON API (no or _very minimal_ included web UI)
 * Simple support for adding initial database dependencies (PostgreSQL or CouchDB only at the moment)
 

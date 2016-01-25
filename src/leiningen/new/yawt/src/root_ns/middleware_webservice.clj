@@ -1,7 +1,7 @@
 (ns {{root-ns}}.middleware
   (:require
     [clojure.tools.logging :refer [error]]
-    [clj-webtoolbox.response-helpers :as response]
+    [yawt-tools.response-helpers :as response]
     [{{root-ns}}.views :as views])
   (:use
     {{root-ns}}.utils))

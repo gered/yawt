@@ -12,7 +12,7 @@
                  [ring-server "0.4.0"]
                  [ring/ring-defaults "0.1.5" :exclusions [javax.servlet/servlet-api]]
                  [ring-middleware-format "0.7.0"]
-                 [clj-webtoolbox "0.0.1"]
+                 [yawt-tools "0.0.1"]
 {{#webapp}}
                  [org.clojure/clojurescript "1.7.145"]
                  [weasel "0.7.0" :exclusions [org.clojure/clojurescript]]
@@ -20,6 +20,7 @@
                  [secretary "1.2.3"]
                  [reagent "0.6.0-alpha"]
                  [cljs-ajax "0.5.3"]
+                 [cljsjs/bootstrap "3.3.6-0"]
 {{/webapp}}
 {{#webservice}}
                  [hiccup "1.0.5"]
@@ -78,7 +79,6 @@
                                         :builds {:main
                                                  {:compiler ^:replace
                                                             {:output-to     "resources/public/cljs/main.js"
-                                                             :externs       ["externs/jquery.js"]
                                                              :optimizations :advanced
                                                              :pretty-print  false}}}}
 {{/webapp}}
