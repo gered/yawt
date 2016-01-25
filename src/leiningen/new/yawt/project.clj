@@ -8,7 +8,6 @@
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [compojure "1.4.0"]
                  [metosin/ring-http-response "0.6.5"]
-                 [ring-custom-jetty-server "0.1.0"]
                  [ring-server "0.4.0"]
                  [ring/ring-defaults "0.1.5" :exclusions [javax.servlet/servlet-api]]
                  [ring-middleware-format "0.7.0"]

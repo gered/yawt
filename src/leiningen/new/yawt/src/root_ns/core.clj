@@ -4,7 +4,7 @@
     [compojure.core :refer [defroutes routes]]
     [compojure.route :as route]
     [clojure.tools.logging :refer [info]]
-    [ring-custom-jetty.server.standalone :refer [serve]]
+    [ring.server.standalone :refer [serve]]
     [ring.adapter.jetty :refer [run-jetty]]
     [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
     [ring.middleware.format :refer [wrap-restful-format]]
@@ -81,8 +81,7 @@
       server
       (serve
         (get-handler)
-        {:run-server-fn run-jetty
-         :port          port
+        {:port          port
          :init          init
          :auto-reload?  (env :dev)
          :destroy       destroy
