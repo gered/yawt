@@ -7,7 +7,7 @@ YAWT is a Leiningen template to generate a base project for building:
 * Clojure web applications using ClojureScript and Reagent
   * Also sets things up in a way that should work with IE9 (because -- woe is me -- I must support that crap still sometimes)
 * Clojure web services exposing a JSON API (no or _very minimal_ included web UI)
-* Simple support for adding initial database dependencies (PostgreSQL or CouchDB only at the moment)
+* Simple support for adding initial database dependencies (PostgreSQL, MySQL or CouchDB only at the moment)
 
 This template is **primarly** written for my own use. I got tired of generating new projects with Luminus 
 or other templates and then fiddling with the resulting project for 20-30 minutes afterwards to get it where I 
@@ -37,11 +37,14 @@ $ lein new yawt [project-name] [options]
   
 * **postgres**<br />
   Includes basic PostgreSQL support (dependencies, placeholder connection configuration, etc)
-  
+
+* **mysql**<br />
+  Includes basic MySQL support (dependencies, placeholder connection configuration, etc)
+
 * **couchdb**<br />
   Includes basic CouchDB support (dependencies, placeholder connection configuration, etc)
   
-*Note: Currently, the "postgres" and "couchdb" options cannot be combined together.*
+*Note: Currently, the "postgres", "mysql" and "couchdb" options cannot be combined together.*
 
 ## Profiles
 
@@ -65,6 +68,30 @@ since I prefer having my usual development tasks (commands) work the same regard
 
 However, regardless of what Jetty adapter is being used, Ring's `wrap-reload` middleware is included in development
 builds so a simple `lein run` is probably sufficient to replace what `lein ring server` gave you.
+
+## Database Migrations
+
+Projects using PostgreSQL or MySQL will by default be configured to use migrations via [Ragtime](https://github.com/weavejester/ragtime).
+All migrations should be put under `migrations/` in the project root.
+
+See [here](https://github.com/weavejester/ragtime/wiki/SQL-Migrations) for more details on the conventions you should 
+use for writing your migration scripts, but the general gist of it is (for .sql files that is):
+
+| Type | Filename Format                           |
+|------|-------------------------------------------|
+| UP   | `[number]-[migration name].up.sql`</td>   |
+| DOWN | `[number]-[migration name].down.sql`</td> |
+
+Where `number` is a number like 0001, 0002, 0003, and so on. `migration name` is a short descriptive name of what
+the migration is for.
+
+Migrations can be run or rolled back using these two Leiningen task aliases:
+
+```
+$ lein migrate
+
+$ lein rollback
+```
 
 ## ClojureScript
 
