@@ -4,7 +4,7 @@
 {{#sql}}
  :db {:host "localhost"
       :name "db_name"
-      :port 5432
+      :port {{#postgresql}}5432{{/postgresql}}{{#mysql}}3306{{/mysql}}
       :username "username"
       :password "password"}
 {{/sql}}

@@ -10,7 +10,12 @@
   #{"webapp"
     "webservice"
     "postgresql"
+    "mysql"
     "couchdb"})
+
+(def meta-options
+  #{"sql"
+    "nosql"})
 
 (def default-options
   #{"webapp"})
@@ -59,10 +64,8 @@
    ["dev/user.clj"                (render "dev/user_webservice.clj" data)]])
 
 (defn get-sql-files [data]
-  ["migrations"])
-
-(defn get-postgresql-files [data]
-  [["src/{{path}}/db.clj" (render "src/root_ns/db_postgresql.clj" data)]])
+  ["migrations"
+   ["src/{{path}}/db.clj" (render "src/root_ns/db_sql.clj" data)]])
 
 (defn get-couchdb-files [data]
   [["src/{{path}}/db.clj" (render "src/root_ns/db_couchdb.clj" data)]])
@@ -75,14 +78,18 @@
            (if (:webapp data)     (get-webapp-files data))
            (if (:webservice data) (get-webservice-files data))
            (if (:sql data)        (get-sql-files data))
-           (if (:postgresql data) (get-postgresql-files data))
            (if (:couchdb data)    (get-couchdb-files data)))))
 
 (defn invalid-options? [options]
-  (or (seq (clojure.set/difference options supported-options))
+  ; TODO: clean this up
+  (or (seq (clojure.set/difference options (set (concat supported-options meta-options))))
       (and (some #{"webapp"} options)
            (some #{"webservice"} options))
+      (and (some #{"mysql"} options)
+           (some #{"postgresql"} options))
       (and (some #{"postgresql"} options)
+           (some #{"couchdb"} options))
+      (and (some #{"mysql"} options)
            (some #{"couchdb"} options))))
 
 (defn invalid-options-message! [user-options]
@@ -90,7 +97,7 @@
   (println "Valid options are:" (str/join ", " supported-options))
   (println "*** Note that you can only specify at most ONE from each of:")
   (println "    - 'webapp' and 'webservice'")
-  (println "    - 'postgresql' and 'couchdb'")
+  (println "    - 'postgresql', 'mysql' and 'couchdb'")
   (println "*** If neither 'webapp' or 'webservice' is specified, 'webapp' is assumed")
   (println "*** Specifying no options will default to use only 'webapp'"))
 
@@ -101,7 +108,8 @@
     options))
 
 (defn add-sql-option [options]
-  (if (some #{"postgresql"} options)
+  (if (or (some #{"postgresql"} options)
+          (some #{"mysql"} options))
     (conj options "sql")
     options))
 

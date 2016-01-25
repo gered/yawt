@@ -26,11 +26,15 @@
 {{/webservice}}
 {{#sql}}
                  [org.clojure/java.jdbc "0.4.2"]
-                 [clojurewerkz/ragtime "0.4.0"]
+                 [com.mchange/c3p0 "0.9.5.2"]
+                 [ragtime "0.5.2"]
 {{/sql}}
 {{#postgresql}}
                  [org.postgresql/postgresql "9.4-1202-jdbc42"]
 {{/postgresql}}
+{{#mysql}}
+                 [mysql/mysql-connector-java "5.1.36"]
+{{/mysql}}
 {{#couchdb}}
                  [com.ashafa/clutch "0.4.0"]
                  [com.cemerick/url "0.1.1"]
@@ -45,9 +49,6 @@
 {{#webapp}}
                  [lein-cljsbuild "1.1.2"]
 {{/webapp}}
-{{#sql}}
-                 [clojurewerkz/ragtime.lein "0.4.0"]
-{{/sql}}
                  [lein-pprint "1.1.1"]]
 
 {{#webapp}}
@@ -87,16 +88,15 @@
                                         :stacktraces?  false
                                         :auto-reload?  false}}
              :dev     {:resource-paths ["env-resources/dev"]
+                       :source-paths   ["dev"]
                        :dependencies   [{{#webapp}}[com.cemerick/piggieback "0.2.1"]{{/webapp}}
                                         [pjstadig/humane-test-output "0.7.1"]]
-{{#sql}}
-                       :ragtime        {:migrations ragtime.sql.files/migrations
-                                        :database   "jdbc:{{#postgresql}}postgresql{{/postgresql}}://localhost:5432/db_name?user=username&password=password"}
-{{/sql}}
                        :injections     [(require 'pjstadig.humane-test-output)
                                         (pjstadig.humane-test-output/activate!)]}
              :repl    {:resource-paths ["env-resources/repl"]
                        :source-paths   ["dev"]}}
 
  :aliases {"uberjar" ["do" ["clean"] ["uberjar"]]{{#webapp}}
-           "cljsdev" ["do" ["cljsbuild" "once"] ["cljsbuild" "auto"]]{{/webapp}}})
+           "cljsdev" ["do" ["cljsbuild" "once"] ["cljsbuild" "auto"]]{{/webapp}}{{#sql}}
+           "migrate" ["run" "-m" "user/migrate"]
+           "rollback" ["run" "-m" "user/rollback"]{{/sql}}})

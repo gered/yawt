@@ -40,8 +40,8 @@
 {{#sql}}
 
   (try
-    (db/init!)
-    (info "Database access initialized.")
+    (db/verify-connection)
+    (info "Database connection verified.")
     (catch Exception ex
       (throw (Exception. "Database not available or bad connection information specified." ex))))
 {{/sql}}
