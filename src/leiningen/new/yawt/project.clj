@@ -98,5 +98,5 @@
              :repl    {:resource-paths ["env-resources/repl"]
                        :source-paths   ["dev"]}}
 
- :aliases {"uberjar" ["do" "clean" "uberjar"]{{#webapp}}
+ :aliases {"uberjar" ["do" ["clean"] ["uberjar"]]{{#webapp}}
            "cljsdev" ["do" ["cljsbuild" "once"] ["cljsbuild" "auto"]]{{/webapp}}})
