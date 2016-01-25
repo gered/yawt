@@ -1,7 +1,7 @@
 (ns {{root-ns}}.middleware
   (:require
     [clojure.tools.logging :refer [error]]
-    [noir.response :as response]
+    [clj-webtoolbox.response-helpers :as response]
     [{{root-ns}}.views :as views])
   (:use
     {{root-ns}}.utils))
@@ -20,10 +20,9 @@
       (catch Throwable ex
         (error ex "Unhandled exception.")
         (if (api-request? request)
-          (->> (response/json
-                 {:status  "error"
-                  :message (.getMessage ex)})
-               (response/status 500))
+          (response/error
+            {:status  "error"
+             :message (.getMessage ex)})
           (views/render-response
             request
             views/error-page
@@ -33,10 +32,9 @@
 (defn not-found-handler []
   (fn [request]
     (if (api-request? request)
-      (->> (response/json
-             {:status  "notfound"
-              :message "The request does not match any supported API calls."})
-           (response/status 404))
+      (error/not-found
+        {:status  "notfound"
+         :message "The request does not match any supported API calls."})
       (views/render-response
         request
         views/not-found-page

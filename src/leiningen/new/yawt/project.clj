@@ -5,26 +5,28 @@
 
   :main             {{root-ns}}.core
 
-  :dependencies [[org.clojure/clojure "1.6.0"]
-                 [compojure "1.3.1"]
-                 [metosin/ring-http-response "0.5.2"]
-                 [lib-noir "0.9.5" :exclusions [javax.servlet/servlet-api]]
+  :dependencies [[org.clojure/clojure "1.8.0"]
+                 [compojure "1.4.0"]
+                 [metosin/ring-http-response "0.6.5"]
                  [ring-custom-jetty-server "0.1.0"]
-                 [ring-server "0.3.1"]
+                 [ring-server "0.4.0"]
+                 [ring/ring-defaults "0.1.5" :exclusions [javax.servlet/servlet-api]]
+                 [ring-middleware-format "0.7.0"]
+                 [clj-webtoolbox "0.0.1"]
 {{#webapp}}
-                 [org.clojure/clojurescript "0.0-2511"]
-                 [weasel "0.4.2"]
+                 [org.clojure/clojurescript "1.7.145"]
+                 [weasel "0.7.0" :exclusions [org.clojure/clojurescript]]
                  [clj-pebble "0.2.0"]
-                 [secretary "1.2.1"]
-                 [reagent "0.5.0-alpha"]
-                 [cljs-ajax "0.3.3"]
+                 [secretary "1.2.3"]
+                 [reagent "0.6.0-alpha"]
+                 [cljs-ajax "0.5.3"]
 {{/webapp}}
 {{#webservice}}
                  [hiccup "1.0.5"]
 {{/webservice}}
 {{#postgresql}}
-                 [org.clojure/java.jdbc "0.3.6"]
-                 [org.postgresql/postgresql "9.2-1003-jdbc4"]
+                 [org.clojure/java.jdbc "0.4.2"]
+                 [org.postgresql/postgresql "9.4-1202-jdbc42"]
                  [clojurewerkz/ragtime "0.4.0"]
 {{/postgresql}}
 {{#couchdb}}
@@ -35,7 +37,7 @@
                  [log4j "1.2.16"]
                  [org.slf4j/slf4j-log4j12 "1.7.1"]
                  [edn-config "0.2"]
-                 [prone "0.8.0"]]
+                 [prone "1.0.1"]]
 
   :plugins      [[lein-environ "1.0.0"]
 {{#webapp}}
@@ -55,6 +57,9 @@
 {{/webservice}}
 
 {{#webapp}}
+  :clean-targets ^{:protect false} [:target-path
+                                    [:cljsbuild :builds :main :compiler :output-dir]
+                                    [:cljsbuild :builds :main :compiler :output-to]]
   :cljsbuild {:builds {:main
                         {:source-paths ["src/{{path}}/client"]
                          :compiler     {:output-to     "resources/public/cljs/main.js"
@@ -81,8 +86,8 @@
                                         :stacktraces?  false
                                         :auto-reload?  false}}
              :dev     {:resource-paths ["env-resources/dev"]
-                       :dependencies   [{{#webapp}}[com.cemerick/piggieback "0.1.3"]{{/webapp}}
-                                        [pjstadig/humane-test-output "0.6.0"]]
+                       :dependencies   [{{#webapp}}[com.cemerick/piggieback "0.2.1"]{{/webapp}}
+                                        [pjstadig/humane-test-output "0.7.1"]]
 {{#postgresql}}
                        :ragtime        {:migrations ragtime.sql.files/migrations
                                         :database   "jdbc:postgresql://localhost:5432/db_name?user=username&password=password"}

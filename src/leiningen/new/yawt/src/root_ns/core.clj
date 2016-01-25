@@ -1,12 +1,13 @@
 (ns {{root-ns}}.core
   (:gen-class)
   (:require
-    [compojure.core :refer [defroutes]]
+    [compojure.core :refer [defroutes routes]]
     [compojure.route :as route]
-    [noir.util.middleware :refer [app-handler]]
     [clojure.tools.logging :refer [info]]
     [ring-custom-jetty.server.standalone :refer [serve]]
     [ring.adapter.jetty :refer [run-jetty]]
+    [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
+    [ring.middleware.format :refer [wrap-restful-format]]
 {{#webapp}}
     [clj-pebble.core :as pebble]
     [clj-pebble.web.middleware :refer [wrap-servlet-context-path]]
@@ -60,14 +61,14 @@
   (not-found-handler))
 
 (defn get-handler []
-  (app-handler
-    [main-public-routes
-     api-routes
-     default-handler-routes]
-    :middleware [wrap-env-middleware{{#webapp}}
-                 wrap-servlet-context-path{{/webapp}}]
-    :access-rules []
-    :formats [:json-kw :edn]))
+  (-> (routes
+        main-public-routes
+        api-routes
+        default-handler-routes)
+      (wrap-env-middleware){{#webapp}}
+      (wrap-servlet-context-path){{/webapp}}
+      (wrap-restful-format :formats [:json-kw :edn])
+      (wrap-defaults (assoc-in site-defaults [:security :anti-forgery] false))))
 
 ;; support functions for starting the web app in a REPL / running an uberjar directly
 ;; (not used otherwise)
