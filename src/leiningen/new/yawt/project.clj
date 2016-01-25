@@ -42,7 +42,7 @@
 
   :plugins      [[lein-environ "1.0.0"]
 {{#webapp}}
-                 [lein-cljsbuild "1.0.3"]
+                 [lein-cljsbuild "1.1.2"]
 {{/webapp}}
 {{#postgresql}}
                  [clojurewerkz/ragtime.lein "0.4.0"]
@@ -97,5 +97,5 @@
              :repl    {:resource-paths ["env-resources/repl"]
                        :source-paths   ["dev"]}}
 
- :aliases {"uberjar" ["do" "clean" {{#webapp}}["cljsbuild" "clean"]{{/webapp}} "uberjar"]{{#webapp}}
-           "cljsdev" ["do" ["cljsbuild" "clean"] ["cljsbuild" "once"] ["cljsbuild" "auto"]]{{/webapp}}})
+ :aliases {"uberjar" ["do" "clean" "uberjar"]{{#webapp}}
+           "cljsdev" ["do" ["cljsbuild" "once"] ["cljsbuild" "auto"]]{{/webapp}}})

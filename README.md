@@ -74,7 +74,7 @@ A Leiningen alias is available which is helpful during development:
 $ lein cljsdev
 ```
 
-It performs a `cljsbuild clean`, `once` and `auto`.
+It performs a `cljsbuild once` and `cljsbuild auto`.
 
 Generated web applications are set up with support for a ClojureScript REPL using [weasel](https://github.com/tomjakubowski/weasel).
 Note that the `project.clj` uses a specific version of ClojureScript and weasel to ensure this configuration works.
