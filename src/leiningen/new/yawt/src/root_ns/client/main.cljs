@@ -1,5 +1,6 @@
 (ns {{root-ns}}.client.main
   (:require
+    cljsjs.bootstrap
     [weasel.repl :as ws-repl]
     [reagent.core :as reagent]
     [secretary.core :as secretary :refer-macros [defroute]]
