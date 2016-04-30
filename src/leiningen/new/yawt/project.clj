@@ -11,7 +11,7 @@
                  [ring-server "0.4.0"]
                  [ring/ring-defaults "0.1.5" :exclusions [javax.servlet/servlet-api]]
                  [ring-middleware-format "0.7.0"]
-                 [yawt-tools "0.0.1"]
+                 [gered/webtools "0.0.1"]
 {{#webapp}}
                  [org.clojure/clojurescript "1.7.145"]
                  [weasel "0.7.0" :exclusions [org.clojure/clojurescript]]
